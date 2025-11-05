@@ -1,1 +1,21 @@
-$give @s trial_spawner[item_name='"Hostile Cobblemon Trial Spawner"',block_entity_data={id:"minecraft:trial_spawner",normal_config:{spawn_potentials:[{data:{entity:{id:"minecraft:silverfish",Silent:1b,Invulnerable:1b,Tags:["cobspawners_rider"],ArmorItems:[{id:"minecraft:barrier",count:1,components:{"minecraft:custom_data":{mount_name:$(pokemon),mount_level:$(level),damage:$(damage)}}},{},{},{}],ArmorDropChances:[0.000F,0.085F,0.085F,0.085F],active_effects:[{id:"minecraft:invisibility",amplifier:0,duration:-1,show_particles:0b}],attributes:[{id:"minecraft:generic.attack_damage",base:0},{id:"minecraft:generic.burning_time",base:0}]}},weight:1}]},ominous_config:{spawn_potentials:[{data:{entity:{id:"minecraft:silverfish",Silent:1b,Invulnerable:1b,Tags:["cobspawners_rider"],ArmorItems:[{id:"minecraft:barrier",count:1,components:{"minecraft:custom_data":{mount_name:$(pokemon),mount_level:$(level),damage:$(elite_damage)}}},{},{},{}],ArmorDropChances:[0.000F,0.085F,0.085F,0.085F],active_effects:[{id:"minecraft:invisibility",amplifier:0,duration:-1,show_particles:0b}],attributes:[{id:"minecraft:generic.attack_damage",base:0},{id:"minecraft:generic.burning_time",base:0}]}},weight:1}],loot_tables_to_eject:[{data:"minecraft:spawners/ominous/trial_chamber/key",weight:3},{data:"minecraft:spawners/ominous/trial_chamber/consumables",weight:7}]}}] 1
+# Store the incoming configs temporarily
+$data modify storage cobspawners:temp normal_config set value $(normal_config)
+$data modify storage cobspawners:temp ominous_config set value $(ominous_config)
+
+# Flatten normal_config
+data modify storage cobspawners:temp flat.normal_pokemon set from storage cobspawners:temp normal_config.pokemon
+data modify storage cobspawners:temp flat.normal_level set from storage cobspawners:temp normal_config.level
+data modify storage cobspawners:temp flat.normal_damage set from storage cobspawners:temp normal_config.damage
+data modify storage cobspawners:temp flat.normal_attack_delay set from storage cobspawners:temp normal_config.attack_delay
+
+# Flatten ominous_config
+data modify storage cobspawners:temp flat.ominous_pokemon set from storage cobspawners:temp ominous_config.pokemon
+data modify storage cobspawners:temp flat.ominous_level set from storage cobspawners:temp ominous_config.level
+data modify storage cobspawners:temp flat.ominous_damage set from storage cobspawners:temp ominous_config.damage
+data modify storage cobspawners:temp flat.ominous_attack_delay set from storage cobspawners:temp ominous_config.attack_delay
+
+# Give the spawner
+execute as @s run function cobspawners:internal/give_spawner with storage cobspawners:temp flat
+
+# Example usage
+# function cobspawners:get_spawner {normal_config: {pokemon: "Ekans", level: 10, damage: 4, attack_delay: 40}, ominous_config: {pokemon: "Arbok", level: 20, damage: 8, attack_delay: 20}}

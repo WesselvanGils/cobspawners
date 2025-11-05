@@ -9,3 +9,6 @@ execute as @e[type=cobblemon:pokemon, tag=cobspawners_mount, scores={cobspawners
 
 # Decrease attack cooldown
 scoreboard players remove @e[type=cobblemon:pokemon, tag=cobspawners_mount] cobspawners_attack_cooldown 1
+
+
+function cobspawners:internal/attack {key: {test: "x"}, otherkey: {othertest: "y"}}
