@@ -1,0 +1,3 @@
+scoreboard objectives add cobspawners_attack_cooldown dummy
+
+say Loaded Cobspawners

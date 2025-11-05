@@ -1,0 +1,1 @@
+scoreboard objectives remove cobspawners_attack_cooldown
